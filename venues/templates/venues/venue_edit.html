@@ -1,0 +1,123 @@
+{% extends 'venues/venue_create.html' %}
+{% block title %}New Venue{% endblock %}
+{% block content %}
+<div class="form-wrapper">
+  <form method="post" class="form">{% csrf_token %}
+    <h3 class="form-heading">Edit venue <em>{{ venue.name }}</em>
+        <a href="{% url 'venues:venue-list' %}" title="Back to homepage"><i
+          class="fa fa-home pull-right"></i></a>
+    </h3>
+
+    <!-- Name Group -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" name="name" class="form-control" required autofocus 
+       value="{{ form.name.value }}" />
+      {% for err in form.name.errors %}
+        <small class="text-danger ml-2">{{ err }}</small><br>
+      {% endfor %}
+    </div>
+
+    <!-- City Group -->
+    <div class="form-group">
+      <label>City & State</label>
+      <div class="form-inline">
+        <div class="form-group">
+            <input id="city" name="city" required class="form-control" placeholder='City' autofocus 
+                value="{{ form.city.value }}"/>
+        </div>
+        <div class="form-group">
+            <select id="state" name="state" class="form-control">
+                {% for option in form.state %}
+                {{ option }}
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+      {% for err in form.city.errors %}
+        <small class="text-danger ml-2">{{ err }}</small><br>
+      {% endfor %}
+    </div>
+
+    <!-- Address Group -->
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input id="address" name="address" required class="form-control" autofocus 
+       value="{{ form.address.value }}" />
+        {% for err in form.address.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+
+    <!-- Phone Group -->
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" class="form-control"  
+      {% if form.phone.value %} value="{{ form.phone.value }}" autofocus {% endif %}/>
+    </div>
+
+    <!-- Grenre Group -->
+    <div class="form-group">
+      <label for="genre">Genres</label>
+      <small>Ctrl+Click to select multiple</small><br>
+      <select id="genre" name="genre" class="select-multiple" required multiple  >
+          {% for option in form.genre %}
+           {{ option }}
+          {% endfor %}
+      </select>
+    </div>
+
+     <!-- Seeking venue Form Group -->
+     <div class="form-group">
+        <label for="genre">Seeking Talent</label>
+        <div class="seeking">
+            <input id="seeking_talent" name="seeking_talent" type="checkbox" class="seeking"
+            {% if form.seeking_talent.value %} checked  {% endif %} />
+        </div>
+    </div>
+
+    <!-- Seeking Description Form Group -->
+    <div class="form-group">
+        <label for="description">Seeking Description</label>
+        <div>
+          <textarea class="form-control" name="seeking_description" id="seeking_description"  
+          rows="3" >{% if form.seeking_description.value %}{{ form.seeking_description.value }}{% endif %}
+          </textarea>
+        </div>  
+    </div>
+
+    <!-- Facebook Link Group -->
+    <div class="form-group">
+      <label for="facebook_link">Facebook Link</label>
+         <input id="facebook_link" name="facebook_link" class="form-control" autofocus 
+         {% if form.facebook_link.value %} value="{{ form.facebook_link.value }}" {% endif %} />
+      
+         {% for err in form.facebook_link.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+
+    <!-- Image Link Group -->
+    <div class="form-group">
+        <label for="image_link">Image Link</label>
+           <input id="image_link" name="image_link" class="form-control" autofocus 
+             {% if form.image_link.value %} value="{{ form.image_link.value }}" {% endif %} />
+           {% for err in form.image_link.errors %}
+            <small class="text-danger ml-2">{{ err }}</small><br>
+           {% endfor %}
+    </div>
+
+    <!-- Website Link Form Group -->
+    <div class="form-group">
+        <label for="website_link">Website Link</label>
+          <input id="website_link" name="website_link" class="form-control"  autofocus 
+          {% if form.website_link.value %}value="{{ form.website_link.value }}"{% endif %} />
+          {% for err in form.website_link.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+      
+    <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
+  </form>
+</div>
+{% endblock %}

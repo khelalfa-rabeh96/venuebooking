@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Create Show {% endblock %}
+{% block content %}
+<div class="form-wrapper">
+    <form method="post" class="form" >{% csrf_token %}
+
+        <!-- Venue Form Group -->
+        <div class="form-group">
+            <select id="venue" name="venue" class="form-control">
+                {% for option in form.venue %}
+                {{ option }}
+                {% endfor %}
+            </select>
+            {% for err in form.venue.errors %}
+             <small class="text-danger ml-2">{{ err }}</small><br>
+            {% endfor %}
+        </div>
+
+        <!-- Artist Form Group -->
+        <div class="form-group">
+            <select id="artist" name="artist" class="form-control">
+                {% for option in form.artist %}
+                {{ option }}
+                {% endfor %}
+            </select>
+            {% for err in form.artist.errors %}
+                <small class="text-danger ml-2">{{ err }}</small><br>
+            {% endfor %}
+        </div>
+
+        <!-- Date Time Form Group -->
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" id="start_time" name="start_time" />
+                <span class="input-group-addon">
+                    <i class="fas fa-calendar"></i>
+                </span>
+             </div>
+
+             {% for err in form.start_time.errors %}
+                <small class="text-danger ml-2">{{ err }}</small><br>
+                {% endfor %}
+         </div>
+      
+
+
+        <input type="submit" value="Create Show" class="btn btn-primary btn-lg btn-block">
+        
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+    $(document).ready(function(){
+        $("#datetimepicker1").datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}New Artist{% endblock %}
+{% block content %}
+<div class="form-wrapper">
+  <form method="post" class="form">{% csrf_token %}
+    
+    <h3 class="form-heading">List a new artist <a href="/" title="Back to homepage"><i
+          class="fa fa-home pull-right"></i></a></h3>
+    
+          
+    <!-- Name Form Group -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" name="name" class="form-control" required autofocus 
+         {% if form.is_bound %}value="{{ form.name.value }}"{% endif %} />
+         {% for err in form.name.errors %}
+         <small class="text-danger ml-2">{{ err }}</small><br>
+         {% endfor %}
+    </div>
+
+    <!-- City And State Form Group -->
+    <div class="form-group">
+      <label>City & State</label>
+      <div class="form-inline">
+
+        <!-- City Form Group -->
+        <div class="form-group">
+            <input id="city" name="city" class="form-control" required placeholder='City' autofocus 
+            {% if form.is_bound %}value="{{ form.city.value }}"{% endif %}/>
+        </div>
+
+        <!-- State Form Group -->
+        <div class="form-group">
+            <select id="state" name="state" class="form-control">
+                {% for option in form.state %}
+                {{ option }}
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+      {% for err in form.city.errors %}
+        <small class="text-danger ml-2">{{ err }}</small><br>
+      {% endfor %}
+    </div>
+
+    <!-- Address Form Group -->
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input id="address" name="address" class="form-control" required autofocus 
+      {% if form.is_bound %}value="{{ form.address.value }}"{% endif %}/>
+    </div>
+
+    <!-- Phone Form Group -->
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" class="form-control"  autofocus
+           {% if form.is_bound %}value="{{ form.phone.value }}"{% endif %} />
+      </div>
+
+    <!-- Genre Form Group -->
+    <div class="form-group">
+      <label for="genre">Genres</label>
+      <small>Ctrl+Click to select multiple</small><br>
+      <select id="genre" name="genre" class="select-multiple" required multiple  >
+          {% for option in form.genre %}
+           {{ option }}
+          {% endfor %}
+      </select>
+    </div>
+
+    <!-- Seeking venue Form Group -->
+    <div class="form-group">
+        <label for="genre">Seeking Venue</label>
+        <div class="seeking">
+            <input id="seeking_venue" name="seeking_venue" type="checkbox" class="seeking"
+            {% if form.is_bound and form.seeking_venue.value %} checked  {% endif %} />
+        </div>
+    </div>
+
+    <!-- Seeking Description Form Group -->
+    <div class="form-group">
+        <label for="description">Seeking Description</label>
+        <div>
+          <textarea class="form-control" name="seeking_description" id="seeking_description"  
+          rows="3" >{% if form.is_bound %}{{ form.seeking_description.value }}{% endif %}
+          </textarea>
+        </div>  
+    </div>
+
+    <!-- Facebook Link Form Group -->
+    <div class="form-group">
+      <label for="facebook_link">Facebook Link</label>
+         <input id="facebook_link" name="facebook_link" class="form-control"  autofocus 
+         {% if form.is_bound %}value="{{ form.facebook_link.value }}"{% endif %} />
+         {% for err in form.facebook_link.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+
+    <!-- Image Link Form Group -->
+    <div class="form-group">
+        <label for="image_link">Image Link</label>
+           <input id="image_link" name="image_link" class="form-control"  autofocus 
+           {% if form.is_bound %}value="{{ form.image_link.value }}"{% endif %} />
+           {% for err in form.image_link.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+
+    <!-- Website Link Form Group -->
+    <div class="form-group">
+        <label for="website_link">Website Link</label>
+           <input id="website_link" name="website_link" class="form-control"  autofocus 
+           {% if form.is_bound %}value="{{ form.website_link.value }}"{% endif %} />
+           {% for err in form.website_link.errors %}
+          <small class="text-danger ml-2">{{ err }}</small><br>
+        {% endfor %}
+    </div>
+
+    <input type="submit" value="Create Artist" class="btn btn-primary btn-lg btn-block">
+  </form>
+</div>
+{% endblock %}
